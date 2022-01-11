@@ -35,6 +35,18 @@ public class BookController {
         return booksService.getBook(id).orElseThrow();
     }
 
+    @PutMapping("")
+    @ResponseBody
+    public JsonResponse updateBook(@RequestBody Book book) {
+        booksService.updateBook(book);
+        return new JsonResponse(("updated book:"), book);
+    }
+
+    @DeleteMapping("/{id}")
+    public void removeBook(@PathVariable long id){
+        booksService.removeBook(id);
+    }
+
 
 
     @RequestMapping("/helloBook")
