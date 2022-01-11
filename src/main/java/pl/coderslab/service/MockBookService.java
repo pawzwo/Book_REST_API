@@ -37,8 +37,36 @@ public class MockBookService implements BooksService{
         book.setId(getBooks().get(getBooks().size()- 1).getId()+1);
         this.books.add(book);
     }
+    
+    @Override
+    public void removeBook(long id) {
+        if (getBook(id).isPresent()) {
+            System.out.println("jest");
+            books.remove(getBook(id).orElseThrow());
+        } else {
+            System.out.println("brak");
+        }
+    }
+    
+    @Override
+    public Book updateBook(Book book) {
+        if (getBook(book.getId()).isPresent()) {
+            Book bookTmp = getBook(book.getId()).orElseThrow();
+            bookTmp.setIsbn(book.getIsbn());
+            bookTmp.setTitle(book.getTitle());
+            bookTmp.setAuthor(book.getAuthor());
+            bookTmp.setPublisher(book.getPublisher());
+            bookTmp.setType(book.getType());
+            return book;
+        }
+        return null;
+    }
 
-
-
+    /*@Override
+    public void delete(Long id) {
+        if (get(id).isPresent()) {
+            books.remove(this.get(id).get());
+        }
+    }*/
 
 }
